@@ -39,7 +39,9 @@ public class AdminLoginController extends HttpServlet {
 		String str = logdao.AdminLogin(log);
 		
 		if(str!=null) {
-			response.getWriter().append("Welcome " + str).append(request.getContextPath());
+			response.sendRedirect("AdminDashBoard.html");  
+			//response.getWriter().append("Welcome " + str).append(request.getContextPath());
+			
 		}
 		else {
 			response.getWriter().append("Invalid uname or password").append(request.getContextPath());
