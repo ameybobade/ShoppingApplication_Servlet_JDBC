@@ -47,4 +47,32 @@ public class AdminDao {
 		
 	}
 	
+	public int UpdateProduct(Product prod)
+	{
+		
+		con = mycon.getConnection();
+		
+		try {
+			
+			
+			pstate = con.prepareStatement("update ProductDB set prodname=?, prodquant=?, prodprice=? where prodid=?");
+			
+			pstate.setString(1, prod.getProdName());
+			pstate.setInt(2, prod.getProdQuant());
+			pstate.setInt(3, prod.getProdPrice());
+			pstate.setInt(4, prod.getProdId());
+			
+			int i = pstate.executeUpdate();
+			
+			return i;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
+	}
+	
 }
