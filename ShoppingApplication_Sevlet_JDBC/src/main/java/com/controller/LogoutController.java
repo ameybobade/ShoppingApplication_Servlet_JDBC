@@ -34,7 +34,7 @@ public class LogoutController extends HttpServlet {
 		session.getAttribute("uname");
 		session.removeAttribute("name");
 		session.invalidate();
-		
+		//abcd
 		session = request.getSession(false);
 		if(session==null)
 		{
