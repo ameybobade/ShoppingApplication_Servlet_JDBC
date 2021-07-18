@@ -1,6 +1,7 @@
 package com.dao;
 
 import java.sql.*;
+import java.util.*;
 
 import com.model.Product;
 
@@ -10,6 +11,7 @@ public class AdminDao {
 	MyConnection mycon = new MyConnection();
 	PreparedStatement pstate;
 	Statement state;
+	int i=0;
 	
 	public int AddProduct(Product prod)
 	{
@@ -45,6 +47,37 @@ public class AdminDao {
 		
 		return 0;
 		
+	}
+	public int deleteProduct(int id) {
+		con = mycon.getConnection();
+		  try {
+			pstate = con.prepareStatement("delete from ProductDB where prodid=?");
+		    pstate.setInt(1, id);
+			i = pstate.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;
+	}
+	public List<Product> displayall(){
+		   con = mycon.getConnection();
+		   List<Product> lst = new LinkedList<Product>();
+		   String str = "select * from ProductDB";
+	       try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(str);
+			 ResultSetMetaData rm = rs.getMetaData();
+			
+			  while(rs.next()) {
+				    Product p = new Product(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4));
+					lst.add(p);
+			  }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	      return lst;
 	}
 	
 	public int UpdateProduct(Product prod)

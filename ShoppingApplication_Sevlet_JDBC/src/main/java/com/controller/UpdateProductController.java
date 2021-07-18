@@ -46,12 +46,12 @@ public class UpdateProductController extends HttpServlet {
 		AdminDao addao = new AdminDao();
 		
 		int i = addao.UpdateProduct(prod);
+		HttpSession session = request.getSession(false);
 		
+		String uname = (String)session.getAttribute("uname");
 		if(i>0)
 		{
-			HttpSession session = request.getSession(false);
-			
-			String uname = (String)session.getAttribute("uname");
+		
 			String htmlRespone = "<html><body>";
 	        htmlRespone += "<h2>Product Updated</h2>";
 	        htmlRespone += "<br>";
@@ -70,6 +70,8 @@ public class UpdateProductController extends HttpServlet {
 	        htmlRespone += "<h2>Product can't be updated. Please check the details you entered.</h2>";
 	        htmlRespone += "<br>";
 	        htmlRespone += "<button><a href='AdminDashBoard.html'>Admin DashBoard</a></button>";
+	        htmlRespone += "<br>";
+	        htmlRespone += "<button><a href='LogoutController'>Logout "+uname+"</a></button>";
 	        htmlRespone += "</body></html>";
 	        out.println(htmlRespone);
 		}
