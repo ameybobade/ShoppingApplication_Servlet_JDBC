@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.dao.AdminDao;
 import com.model.Product;
@@ -48,10 +49,17 @@ public class UpdateProductController extends HttpServlet {
 		
 		if(i>0)
 		{
+			HttpSession session = request.getSession(false);
+			
+			String uname = (String)session.getAttribute("uname");
 			String htmlRespone = "<html><body>";
 	        htmlRespone += "<h2>Product Updated</h2>";
 	        htmlRespone += "<br>";
 	        htmlRespone += "<button><a href='AdminDashBoard.html'>Admin DashBoard</a></button>";
+	        
+	        htmlRespone += "<br>";
+	        htmlRespone += "<button><a href='LogoutController'>Logout "+uname+"</a></button>";
+	        
 	        htmlRespone += "</body></html>";
 	        out.println(htmlRespone);
 			

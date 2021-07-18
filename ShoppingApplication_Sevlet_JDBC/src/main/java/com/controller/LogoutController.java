@@ -8,20 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dao.LoginDao;
-import com.model.Login;
-
 /**
- * Servlet implementation class AdminLoginController
+ * Servlet implementation class LogoutController
  */
-@WebServlet("/AdminLoginController")
-public class AdminLoginController extends HttpServlet {
+@WebServlet("/LogoutController")
+public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminLoginController() {
+    public LogoutController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,24 +28,23 @@ public class AdminLoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String uname = request.getParameter("uname");
-		String password = request.getParameter("password");
-				
-		Login log = new Login(uname, password);
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		LoginDao logdao = new LoginDao();
-		String str = logdao.AdminLogin(log);
+		HttpSession session = request.getSession(false);
+		session.getAttribute("uname");
+		session.removeAttribute("name");
+		session.invalidate();
 		
-		if(str!=null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("uname", uname);
-			response.sendRedirect("AdminDashBoard.html");  
-			//response.getWriter().append("Welcome " + str).append(request.getContextPath());
-			
+		session = request.getSession(false);
+		if(session==null)
+		{
+			response.sendRedirect("Home.html");
 		}
-		else {
-			response.getWriter().append("Invalid uname or password").append(request.getContextPath());
+		else
+		{
+			System.out.println("Not null");
 		}
+		
 	}
 
 	/**
