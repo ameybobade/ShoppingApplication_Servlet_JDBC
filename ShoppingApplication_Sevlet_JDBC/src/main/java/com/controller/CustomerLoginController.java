@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.dao.LoginDao;
 import com.model.Login;
@@ -33,12 +34,15 @@ public class CustomerLoginController extends HttpServlet {
 		String uname = request.getParameter("uname");
 		String password = request.getParameter("password");
 		
+		HttpSession session = request.getSession();
+		session.setAttribute("name",uname);
+		
 		Login log = new Login(uname, password);
 		LoginDao logdao = new LoginDao();
 		
 		String str = logdao.CustomerLogin(log);
 		if(str!=null) {
-			response.getWriter().append("Welcome " + str).append(request.getContextPath());
+			response.sendRedirect("CustomerDashboard.html");
 		}
 		else {
 			response.getWriter().append("Invalid uname or password").append(request.getContextPath());

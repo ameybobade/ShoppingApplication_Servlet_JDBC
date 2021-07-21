@@ -1,6 +1,8 @@
 package com.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,12 +37,15 @@ public class CustomerRegistrationController extends HttpServlet {
 		int phno = Integer.parseInt(request.getParameter("phno"));
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
+		PrintWriter pw = response.getWriter();
 		Registration reg = new Registration(name, uname, phno, email, password);
 		
 		RegistrationDao regDao = new RegistrationDao();
-		regDao.CustomerRegistration(reg);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int i = regDao.CustomerRegistration(reg);
+		if(i>0) {
+			response.sendRedirect("CustomerLogin.html");
+		}
+ 
 	}
 
 	/**

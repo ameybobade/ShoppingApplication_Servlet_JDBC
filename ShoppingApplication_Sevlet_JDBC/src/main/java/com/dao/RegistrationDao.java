@@ -10,8 +10,9 @@ public class RegistrationDao {
 	MyConnection mycon = new MyConnection();
 	PreparedStatement pstate;
 	Statement state;
+	int i=0;
 	
-	public void AdminRegistration(Registration reg) {
+	public int AdminRegistration(Registration reg) {
 		
 		con = mycon.getConnection();
 		int id = 1;
@@ -34,7 +35,7 @@ public class RegistrationDao {
 			pstate.setString(3, reg.getPassword());
 			System.out.println("1");
 			
-			int i = pstate.executeUpdate();
+			 i = pstate.executeUpdate();
 			
 			if(i>0) {
 				System.out.println(reg.getUname() + " Registered!!");
@@ -43,10 +44,11 @@ public class RegistrationDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return i;
 		
 	}
 	
-	public void CustomerRegistration(Registration reg) {
+	public int CustomerRegistration(Registration reg) {
 		
 		con = mycon.getConnection();
 		int id = 1;
@@ -72,7 +74,7 @@ public class RegistrationDao {
 			pstate.setString(6, reg.getPassword());
 			System.out.println("1");
 			
-			int i = pstate.executeUpdate();
+			 i = pstate.executeUpdate();
 			
 			if(i>0) {
 				System.out.println(reg.getUname() + " Registered!!");
@@ -81,6 +83,6 @@ public class RegistrationDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return i;
 	}
 }

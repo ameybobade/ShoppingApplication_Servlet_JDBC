@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.connector.Response;
 
 import com.dao.RegistrationDao;
 
@@ -38,7 +39,11 @@ public class AdminRegistrationController extends HttpServlet {
 		Registration reg = new Registration(null, uname, 0, null, password);
 		
 		RegistrationDao regDao = new RegistrationDao();
-		regDao.AdminRegistration(reg);
+		 int i =regDao.AdminRegistration(reg);
+		 if(i>0) {
+			 response.sendRedirect("AdminLogin.html");
+		 }
+		 
 	}
 
 	/**
