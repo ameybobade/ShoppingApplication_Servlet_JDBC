@@ -33,7 +33,7 @@ public class CustomerProfileController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		    HttpSession session = request.getSession();
-		    String uname = (String) session.getAttribute("name");
+		    String uname = (String) session.getAttribute("uname");
 		    CustomerDao cdao = new CustomerDao();
 		    Registration p =cdao.profile(uname);
 		    PrintWriter pw = response.getWriter();
