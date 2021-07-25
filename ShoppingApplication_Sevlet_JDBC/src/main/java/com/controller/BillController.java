@@ -15,16 +15,16 @@ import com.dao.CustomerDao;
 import com.model.Product;
 
 /**
- * Servlet implementation class CartController
+ * Servlet implementation class BillController
  */
-@WebServlet("/CartController")
-public class CartController extends HttpServlet {
+@WebServlet("/BillController")
+public class BillController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartController() {
+    public BillController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +33,18 @@ public class CartController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		
 		HttpSession session=request.getSession(false);
 		String uname = (String) session.getAttribute("uname");
 		if(session==null)
 		{
 			response.sendRedirect("CustomerLogin.html");
 		}
+		double total=0,cgst=0,sgst,finaltotal=0;
+		java.util.Date udate = new java.util.Date();
+		System.out.println(udate);
 		CustomerDao custdao=new CustomerDao();
 		
-		List<Product> CartList=custdao.CartDisplay(uname);
+		List<Product> CartList=custdao.bill(uname);
 		
 		PrintWriter pw =  response.getWriter(); 
 		String htmlresponse="<style>";
@@ -63,6 +63,7 @@ public class CartController extends HttpServlet {
 				+"<th>Product Name</th>"
 				+"<th>Quantity</th>"
 				+"<th>Price</th>"
+				+"<th>Total</th>"
 				+"</tr>";
 		pw.print(htmlresponse);
        for(Product p:CartList) {
@@ -70,16 +71,42 @@ public class CartController extends HttpServlet {
 	            pw.print("<td>"+p.getProdName()+"</td>");
 	            pw.print("<td>"+p.getProdQuant()+"</td>");
 	            pw.print("<td>"+p.getProdPrice()+"</td>");
+	            pw.print("<td>"+p.getProdId()+"</td>");
 	            pw.print("</tr>");
+	            total = total+(p.getProdId());
+	             
         }
+       
+   	pw.print("<tr>");
+    pw.print("<td>TOTAL</td>");
+    pw.print("<td></td>");
+    pw.print("<td></td>");
+    pw.print("<td>"+total+"</td>");
+    pw.print("</tr>");
+              cgst=total*0.06;
+		      sgst=total*0.06;
+		      finaltotal = total+cgst+sgst;
+		      
         pw.print("</table>");
-        htmlresponse = "	<button><a href=\"CustomerProfileController\">Profile</a></button>\r\n"
+        
+        htmlresponse = "<br><br><br><table>"
+
+                 + "<tr><td><label>DATE</label></td><td>"+udate+"</td></tr>"
+        		+ "<tr><td><label>CGST</label></td><td>"+cgst+"</td></tr>"
+        		+ "<tr><td><label>SGST</label></td><td>"+sgst+"</td></tr>"
+        		+"<tr><td><label>FINAL TOTAL</label></td><td>"+finaltotal+"</td></tr>"
+        		+ "</table><br><br>"
+        		+ "<button><a href='PaidController'>Pay Bill</a></button><br><br>";
+
+        
+        htmlresponse += "	<button><a href=\"CustomerProfileController\">Profile</a></button>\r\n"
         		+ "	<!-- <button><a href=\"LastTransactionController\">Last Transaction</a></button> -->\r\n"
         		+ "	<button><a href=\"ShopController\">Buy Products</a></button>\r\n"
         		+ "	<button><a href=\"CartController\">Cart</a></button>\r\n"
         		+ "	<button><a href=\"BillController\">Bill</a></button>\r\n"
         		+ "	<button><a href=\"CustomerLogoutController\">Logout</a></button>" ;
         pw.print(htmlresponse);
+        
 	}
 
 	/**

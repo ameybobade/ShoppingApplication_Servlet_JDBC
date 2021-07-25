@@ -49,8 +49,10 @@ public class CustomerDao {
 			 ResultSetMetaData rm = rs.getMetaData();
 			
 			  while(rs.next()) {
+				  if(rs.getInt(3)>0) {
 				    Product p = new Product(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4));
 					lst.add(p);
+				  }
 			  }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -214,5 +216,109 @@ public class CustomerDao {
 		return Cartlist;
 		
 	}
+	public List<Product> bill(String uname){
+		List<Product> Cartlist=new LinkedList<Product>();
+		con=mycon.getConnection();
+		int CustId = 0,ProdPrice=0,ProdQuant=0;
+		String ProdName;
+		try {
+			/*-----For finding custid from uname---*/
+			pstate=con.prepareStatement("select * from customerdb where CustUsername=?");
+			pstate.setString(1, uname);
+			
+			ResultSet rs=pstate.executeQuery();
+			
+			while(rs.next())
+			{
+				CustId=rs.getInt(1);
+			}
+			System.out.println("Found Custid "+CustId);
+			
+//			System.out.println("Found Custid "+CustId);
+			/*---------------*/
+			/*-----For finding cart with custid---*/
+			pstate=con.prepareStatement("select * from cartdb where Custid=?");
+			pstate.setInt(1, CustId);
+			
+			rs=pstate.executeQuery();
+			
+			while(rs.next())
+			{
+				ProdName=rs.getString(2);
+				ProdQuant=rs.getInt(3);
+				
+				pstate=con.prepareStatement("select * from productdb where ProdName=?");
+				pstate.setString(1, ProdName);
+				
+				ResultSet rs1=pstate.executeQuery();
+				while(rs1.next())
+				{
+					Product prod=new Product(ProdQuant*rs1.getInt(4), ProdName, ProdQuant, rs1.getInt(4));
+					Cartlist.add(prod);
+				}
+				
+				
+			}
+			System.out.println("Found Custid "+CustId);
+			/*---------------*/
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return Cartlist;
+}
+	 public int paid(String uname) {
+		  con=mycon.getConnection();
+		  int CustId = 0,ProdPrice=0,ProdQuant=0,i=0;
+		  String ProdName=null;
+		   try {
+			pstate=con.prepareStatement("select * from customerdb where CustUsername=?");
+	pstate.setString(1, uname);
+			
+			ResultSet rs=pstate.executeQuery();
+			
+			while(rs.next())
+			{
+				CustId=rs.getInt(1);
+			}
+			System.out.println("Found Custid "+CustId);
+			
+			pstate=con.prepareStatement("select * from cartdb where Custid=?");
+			pstate.setInt(1, CustId);
+			
+			rs=pstate.executeQuery();
+			
+			while(rs.next())
+			{
+				ProdName=rs.getString(2);
+				ProdQuant=rs.getInt(3);
+				
+				pstate=con.prepareStatement("select * from productdb where ProdName=?");
+				pstate.setString(1, ProdName);
+				
+				ResultSet rs1=pstate.executeQuery();
+				while(rs1.next())
+				{
+					int prodquant = rs1.getInt(3) -ProdQuant;
+					pstate = con.prepareStatement("Update Productdb set PRODQUANT=? where PRODNAME=?");
+					pstate.setInt(1, prodquant);
+					pstate.setString(2, ProdName);
+					i=pstate.executeUpdate();
+ 
+				}
 	
+			}
+			pstate = con.prepareStatement("delete from Cartdb where CUSTID=?");
+			pstate.setInt(1, CustId);
+			pstate.executeUpdate();
+			System.out.println("Found Custid "+CustId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return i;   
+		 
+	 }
 }
