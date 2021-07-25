@@ -86,7 +86,8 @@ public class BillController extends HttpServlet {
               cgst=total*0.06;
 		      sgst=total*0.06;
 		      finaltotal = total+cgst+sgst;
-		      custdao.ftotaldata(finaltotal);
+		     // custdao.ftotaldata(finaltotal);
+		      session.setAttribute("finaltotal", finaltotal);
         pw.print("</table>");
         
         htmlresponse = "<br><br><br><table>"

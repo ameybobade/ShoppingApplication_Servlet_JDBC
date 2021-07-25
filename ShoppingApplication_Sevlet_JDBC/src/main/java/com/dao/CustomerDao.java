@@ -17,8 +17,6 @@ public class CustomerDao {
 	PreparedStatement pstate;
 	Statement state;
 	Registration p;
-	double finaltotal;
-	
 	
 	public Registration profile(String name) {
 		con = mycon.getConnection();
@@ -270,12 +268,12 @@ public class CustomerDao {
 		return Cartlist;
 }
 	
-	public void ftotaldata(double ftotal)
-	{
-		finaltotal=ftotal;
-		System.out.println(finaltotal);
-	}
-	 public int paid(String uname) {
+//	public void ftotaldata(double ftotal)
+//	{
+//		finaltotal=ftotal;
+//		System.out.println(finaltotal);
+//	}
+	 public int paid(String uname,double finaltotal) {
 		  con=mycon.getConnection();
 		  int CustId = 0,ProdPrice=0,ProdQuant=0,i=0;
 		  String ProdName=null;
@@ -330,6 +328,7 @@ public class CustomerDao {
 				
 			}
 			billId=billId+1;
+			System.out.println(finaltotal);
 			pstate = con.prepareStatement("insert into TransactionDB values(?,?,?)");
 			pstate.setInt(1, CustId);
 			pstate.setInt(2, billId);

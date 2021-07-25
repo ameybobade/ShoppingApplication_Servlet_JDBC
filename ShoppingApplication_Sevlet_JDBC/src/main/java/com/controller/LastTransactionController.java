@@ -1,28 +1,23 @@
 package com.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.dao.CustomerDao;
 
 /**
- * Servlet implementation class PaidController
+ * Servlet implementation class LastTransactionController
  */
-@WebServlet("/PaidController")
-public class PaidController extends HttpServlet {
+@WebServlet("/LastTransactionController")
+public class LastTransactionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PaidController() {
+    public LastTransactionController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,15 +26,8 @@ public class PaidController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 CustomerDao cdao = new CustomerDao();
-		 HttpSession session = request.getSession(false);
-		 String uname = (String) session.getAttribute("uname");
-		 PrintWriter pw = response.getWriter();
-		 double finaltotal = (double) session.getAttribute("finaltotal");
-		 int i=cdao.paid(uname,finaltotal);
-		 if(i>0) {
-			 pw.print("<h1>Order Placed Successfully!!!!-_-</h1>");
-		 }
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
