@@ -33,12 +33,12 @@ public class LogoutController extends HttpServlet {
 		HttpSession session=request.getSession(false);
 		if(session==null)
 		{
-			response.sendRedirect("AdminLogin.html");
+			response.sendRedirect("Login.html");
 		}
 		session.getAttribute("uname");
 		
 		session.invalidate();
-		response.sendRedirect("AdminLogin.html");
+		response.sendRedirect("Login.html");
 		
 	}
 

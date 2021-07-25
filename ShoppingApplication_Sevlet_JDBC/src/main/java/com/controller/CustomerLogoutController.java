@@ -43,7 +43,7 @@ public class CustomerLogoutController extends HttpServlet {
 		session.getAttribute("uname");
 		
 		session.invalidate();
-		response.sendRedirect("CustomerLogin.html");
+		response.sendRedirect("Login.html");
 		
 	}
 		

@@ -37,43 +37,108 @@ public class CustomerProfileController extends HttpServlet {
 		    CustomerDao cdao = new CustomerDao();
 		    Registration p =cdao.profile(uname);
 		    PrintWriter pw = response.getWriter();
-		    pw.print("<style>");
-            pw.print("table {  font-family: arial, sans-serif; border-collapse: collapse; width: 60%;}");
-            pw.print("td, th {\r\n"
-            		+ "  border: 1px solid #dddddd;\r\n"
-            		+ "  text-align: left;\r\n"
-            		+ "  padding: 8px;\r\n"
-            		+ "}");
-            pw.print("tr:nth-child(even) {\r\n"
-            		+ "  background-color: #dddddd;\r\n"
-            		+ "}");
-            pw.print("</style>");
-          //  System.out.println(p.getName());
-          //  System.out.println(p.getPhone());
-            pw.print("<table>");
-            pw.print("<table>");
-            pw.print("<tr>");
-            pw.print("<th>Profile</th>");
-            pw.print("</tr>");
-            pw.print("<tr>");
-	        pw.print("<td>Name</td>");
-	        pw.print("<td>"+p.getName()+"</td>");
-	        pw.print("</tr>");
-	        pw.print("<tr>");
-	        pw.print("<td>UserName</td>");
-	        pw.print("<td>"+p.getUname()+"</td>");
-	        pw.print("</tr>");
-	         pw.print("<tr>");
-	            pw.print("<td>Phone No.</td>");
-	            pw.print("<td>"+p.getPhone()+"</td>");
-	            pw.print("</tr>");
-	            pw.print("<tr>");
-	            pw.print("<td>Email</td>");
-	            pw.print("<td>"+p.getEmail()+"</td>");
-	            pw.print("</tr>");
-	            pw.print("</table>");
+		    String htmlresponse="<html>\r\n"
+					+ "<head>\r\n"
+					+ "<meta charset=\"ISO-8859-1\">\r\n"
+					+ "<title>Customer Dashborad</title>\r\n"
+					+ "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">\r\n"
+					+ "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\" crossorigin=\"anonymous\"></script>\r\n"
+					+ "\r\n"
+					+ "<style>\r\n"
+					+ "      body{\r\n"
+					+ "        font-family: 'Poppins', sans-serif;\r\n"
+					+ "      }\r\n"
+					+ "      nav,\r\n"
+					+ "      .top {\r\n"
+					+ "        background-color: rgb(173, 216, 230)\r\n"
+					+ "      }\r\n"
+					+ "      .border {\r\n"
+					+ "        border-radius: 20px;\r\n"
+					+ "        border-color: rgb(0, 4, 5);\r\n"
+					+ "        border-width: 100px;\r\n"
+					+ "        border-style: solid;\r\n"
+					+ "      }\r\n"
+					+ "\r\n"
+					+ "      \r\n"
+					+ "    </style>\r\n"
+					+ "</head>\r\n"
+					+ "<body>\r\n"
+					+ "	\r\n"
+					+ "<nav class=\"navbar navbar-expand-lg navbar-light\">\r\n"
+					+ "    <div class=\"container-fluid fw-bolder fs-4\">\r\n"
+					+ "      <a class=\"navbar-brand\" href=\"CustomerDashboard.html\"><img src=\"https://user-images.githubusercontent.com/55631782/126898918-0ea9d15a-3de3-417f-916f-23b1b51119cd.png\" alt=\"Logo\" height=\"70px\"/></a>\r\n"
+					+ "      <button\r\n"
+					+ "        class=\"navbar-toggler\"\r\n"
+					+ "        type=\"button\"\r\n"
+					+ "        data-bs-toggle=\"collapse\"\r\n"
+					+ "        data-bs-target=\"#navbarTogglerDemo02\"\r\n"
+					+ "        aria-controls=\"navbarTogglerDemo02\"\r\n"
+					+ "        aria-expanded=\"false\"\r\n"
+					+ "        aria-label=\"Toggle navigation\"\r\n"
+					+ "      >\r\n"
+					+ "        <span class=\"navbar-toggler-icon\"></span>\r\n"
+					+ "      </button>\r\n"
+					+ "      <div class=\"collapse navbar-collapse\" id=\"navbarTogglerDemo02\">\r\n"
+					+ "        <ul class=\"navbar-nav me-auto mb-2 mb-lg-0 \">\r\n"
+					+ "          <li class=\"nav-item\">\r\n"
+					+ "            <a class=\"nav-link\" aria-current=\"page\" href=\"CustomerDashboard.html\">Home</a>\r\n"
+					+ "          </li>\r\n"
+					+ "          <li class=\"nav-item\">\r\n"
+					+ "            <a class=\"nav-link\" href=\"ShopController\">Shop Product</a>\r\n"
+					+ "          </li>\r\n"
+					+ "          <li class=\"nav-item\">\r\n"
+					+ "            <a class=\"nav-link active\" href=\"CustomerProfileController\">Profile</a>\r\n"
+					+ "          </li>\r\n"
+					+ "          <li class=\"nav-item\">\r\n"
+					+ "            <a class=\"nav-link\" href=\"LastTransactionController\">Last Transaction</a>\r\n"
+					+ "          </li>\r\n"
+					+ "          <li class=\"nav-item\">\r\n"
+					+ "            <a class=\"nav-link\" href=\"CartController\">Cart</a>\r\n"
+					+ "          </li>\r\n"
+					+ "          <li class=\"nav-item\">\r\n"
+					+ "            <a class=\"nav-link\" href=\"BillController\">Bill</a>\r\n"
+					+ "          </li>\r\n"
+					+ "          <li class=\"nav-item\">\r\n"
+					+ "            <a class=\"nav-link\" href=\"CustomerLogoutController\">Logout</a>\r\n"
+					+ "          </li>\r\n"
+					+ "        </ul>\r\n"
+					+ "      </div>\r\n"
+					+ "    </div>\r\n"
+					+ "  </nav>\r\n"
+					+ "\r\n"
+					+ "</body>\r\n"
+					+ "</html>";
+			htmlresponse+="<table class=\"table table-striped table-hover container\">\r\n"
+					+ "<thead>\r\n"
+					+ "    <tr>\r\n"
+					+"<th>Profile</th>"
+					+ "    </tr>\r\n"
+					+ "  </thead>\r\n"
+					+ "  <tbody>\r\n"
+					+ "<tr>"
+					+ "<td>Name</td>"
+					+ "<td>"+p.getName()+"</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td>UserName</td>"
+					+ "<td>"+p.getUname()+"</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td>Phone No. </td>"
+					+ "<td>"+p.getPhone()+"</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td>Email id</td>"
+					+ "<td>"+p.getEmail()+"</td>"
+					+ "</tr>";
+			htmlresponse+= "  </tbody>\r\n"
+					+ "</table>";
+           
+	        htmlresponse+= "\r\n"
+	        		+ "</body>\r\n"
+	        		+ "</html>";
 	            
-            
+            pw.print(htmlresponse);
 	}
 
 	/**
