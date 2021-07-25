@@ -86,7 +86,7 @@ public class BillController extends HttpServlet {
               cgst=total*0.06;
 		      sgst=total*0.06;
 		      finaltotal = total+cgst+sgst;
-		      
+		      custdao.ftotaldata(finaltotal);
         pw.print("</table>");
         
         htmlresponse = "<br><br><br><table>"
@@ -106,6 +106,8 @@ public class BillController extends HttpServlet {
         		+ "	<button><a href=\"BillController\">Bill</a></button>\r\n"
         		+ "	<button><a href=\"CustomerLogoutController\">Logout</a></button>" ;
         pw.print(htmlresponse);
+        
+        
         
 	}
 
