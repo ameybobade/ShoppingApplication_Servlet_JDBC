@@ -35,9 +35,18 @@ public class CustomerLogoutController extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
+		HttpSession session=request.getSession(false);
+		if(session==null)
+		{
+			response.sendRedirect("CustomerLogin.html");
+		}
+		session.getAttribute("uname");
 		
+		session.invalidate();
+		response.sendRedirect("CustomerLogin.html");
 		
 	}
+		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -1,1 +1,1 @@
-# ShoppingApplication_Servlet_JDBC
+# ShoppingApplication :handbag:

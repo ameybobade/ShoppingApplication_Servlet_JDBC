@@ -74,7 +74,7 @@ public class CartController extends HttpServlet {
         }
         pw.print("</table>");
         htmlresponse = "	<button><a href=\"CustomerProfileController\">Profile</a></button>\r\n"
-        		+ "	<!-- <button><a href=\"LastTransactionController\">Last Transaction</a></button> -->\r\n"
+        		+ "	 <button><a href='LastTransactionController'>Last Transaction</a></button> \r\n"
         		+ "	<button><a href=\"ShopController\">Buy Products</a></button>\r\n"
         		+ "	<button><a href=\"CartController\">Cart</a></button>\r\n"
         		+ "	<button><a href=\"BillController\">Bill</a></button>\r\n"

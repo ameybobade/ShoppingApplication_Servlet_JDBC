@@ -347,4 +347,35 @@ public class CustomerDao {
 		return i;   
 		 
 	 }
+
+	public List<LastTransaction> lastransaction(String uname) {
+		con=mycon.getConnection();
+		  int CustId = 0,ProdPrice=0,ProdQuant=0,i=0;
+		  List<LastTransaction> TransLst =new LinkedList<LastTransaction>();
+		  String ProdName=null;
+		   try {
+			pstate=con.prepareStatement("select * from customerdb where CustUsername=?");
+	pstate.setString(1, uname);
+			
+			ResultSet rs=pstate.executeQuery();
+			
+			while(rs.next())
+			{
+				CustId=rs.getInt(1);
+			}
+			System.out.println("Found Custid "+CustId);
+			pstate = con.prepareStatement("select * from TransactionDB where CUSTID=?");
+			pstate.setInt(1, CustId);
+			rs = pstate.executeQuery();
+			while(rs.next()) {
+				LastTransaction t = new LastTransaction(rs.getInt(1), rs.getInt(2), rs.getDouble(3));
+				TransLst.add(t);
+			}
+	
+	}catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		   return TransLst;
+	}
 }
