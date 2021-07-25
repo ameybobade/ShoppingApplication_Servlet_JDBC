@@ -35,33 +35,177 @@ public class DeleteProductController extends HttpServlet {
 		  AdminDao ad = new AdminDao();
 		  int i = ad.deleteProduct(id);
 		  HttpSession session = request.getSession(false);
-			
+			PrintWriter out = response.getWriter();
 			String uname = (String)session.getAttribute("uname");
 			if(i>0)
 			{
 			
-				String htmlRespone = "<html><body>";
-		        htmlRespone += "<h2>Product Deleted Successfully.</h2>";
-		        htmlRespone += "<br>";
-		        htmlRespone += "<br>";
-		        htmlRespone += "<button><a href='AdminDashBoard.html'>Admin DashBoard</a></button>";
-		        htmlRespone += "<br>";
-		        htmlRespone += "<button><a href='LogoutController'>Logout "+uname+"</a></button>";
-		        
-		        htmlRespone += "</body></html>";
-		        pw.println(htmlRespone);
+				String htmlRespone = "\r\n"
+	    				+ "<!DOCTYPE html>\r\n"
+	    				+ "<html>\r\n"
+	    				+ "<head>\r\n"
+	    				+ "<meta charset=\"ISO-8859-1\">\r\n"
+	    				+ "<title>Customer Dashborad</title>\r\n"
+	    				+ "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">\r\n"
+	    				+ "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\" crossorigin=\"anonymous\"></script>\r\n"
+	    				+ "\r\n"
+	    				+ "<style>\r\n"
+	    				+ "      body{\r\n"
+	    				+ "        font-family: 'Poppins', sans-serif;\r\n"
+	    				+ "      }\r\n"
+	    				+ "      \r\n"
+	    				+ "      nav,\r\n"
+	    				+ "      .top {\r\n"
+	    				+ "        background-color: rgb(0,0,0);\r\n"
+	    				+ "        \r\n"
+	    				+ "      }\r\n"
+	    				+ "      .border {\r\n"
+	    				+ "        border-radius: 20px;\r\n"
+	    				+ "        border-color: rgb(0, 4, 5);\r\n"
+	    				+ "        border-width: 100px;\r\n"
+	    				+ "        border-style: solid;\r\n"
+	    				+ "      }\r\n"
+	    				+ "		 .nav-item{\r\n"
+	    				+ "				      margin-left:30px;\r\n"
+	    				+ "				      }\r\n"
+	    				+ "      \r\n"
+	    				+ "      \r\n"
+	    				+ "    </style>\r\n"
+	    				+ "</head>\r\n"
+	    				+ "<body>\r\n"
+	    				+ "	\r\n"
+	    				+ "<nav class=\"navbar navbar-expand-lg navbar-dark\">\r\n"
+	    				+ "    <div class=\"container-fluid fw-bolder fs-4\">\r\n"
+	    				+ "      <a class=\"navbar-brand\" href=\"CustomerDashboard.html\"><img src=\"https://user-images.githubusercontent.com/55631782/126907473-d11f3353-9cf4-4d56-9f54-b2d80a3ae6a3.png\" alt=\"Logo\" height=\"70px\"/></a>\r\n"
+	    				+ "      <button\r\n"
+	    				+ "        class=\"navbar-toggler\"\r\n"
+	    				+ "        type=\"button\"\r\n"
+	    				+ "        data-bs-toggle=\"collapse\"\r\n"
+	    				+ "        data-bs-target=\"#navbarTogglerDemo02\"\r\n"
+	    				+ "        aria-controls=\"navbarTogglerDemo02\"\r\n"
+	    				+ "        aria-expanded=\"false\"\r\n"
+	    				+ "        aria-label=\"Toggle navigation\"\r\n"
+	    				+ "      >\r\n"
+	    				+ "        <span class=\"navbar-toggler-icon\"></span>\r\n"
+	    				+ "      </button>\r\n"
+	    				+ "      <div class=\"collapse navbar-collapse\" id=\"navbarTogglerDemo02\">\r\n"
+	    				+ "        <ul class=\"navbar-nav me-auto mb-2 mb-lg-0 \">\r\n"
+	    				+ "          \r\n"
+	    				+ "          <li class=\"nav-item\">\r\n"
+	    				+ "            <a class=\"nav-link \" href=\"addproductadmin.html\">Add Product</a>\r\n"
+	    				+ "          </li>\r\n"
+	    				+ "          <li class=\"nav-item\">\r\n"
+	    				+ "            <a class=\"nav-link \" href=\"UpdateProductAdmin.html\">Update Product</a>\r\n"
+	    				+ "          </li>\r\n"
+	    				+ "          <li class=\"nav-item\">\r\n"
+	    				+ "            <a class=\"nav-link active\" href=\"deleteproductadmin.html\"> Delete Product</a>\r\n"
+	    				+ "          </li>\r\n"
+	    				+ "          <li class=\"nav-item\">\r\n"
+	    				+ "            <a class=\"nav-link\" href=\"DisplayProductController\">Display Products</a>\r\n"
+	    				+ "          </li>\r\n"
+	    				+ "          <li class=\"nav-item\">\r\n"
+	    				+ "            <a class=\"nav-link\" href=\"LogoutController\">Logout</a>\r\n"
+	    				+ "          </li>\r\n"
+	    				+ "        </ul>\r\n"
+	    				+ "      </div>\r\n"
+	    				+ "    </div>\r\n"
+	    				+ "  </nav>\r\n"
+	    				+ "   <br>\r\n"
+	    				+ "   <br>\r\n"
+	    				+ "   <br>\r\n"
+	    				+ "   <div class=\"container\">\r\n"
+	    				+ "     <h1 class=\"display-2\">Product Deleted Successfully!!</h1>"
+	    				+ "   </div>\r\n"
+	    				+ "\r\n"
+	    				+ "</body>\r\n"
+	    				+ "</html>\r\n"
+	    				+ "";
+		        out.println(htmlRespone);
 				
 			}
 			else
 			{
-				String htmlRespone = "<html><body>";
-		        htmlRespone += "<h2>Product can't be deleted. Please check the details you entered.</h2>";
-		        htmlRespone += "<br>";
-		        htmlRespone += "<button><a href='AdminDashBoard.html'>Admin DashBoard</a></button>";
-		        htmlRespone += "<br>";
-		        htmlRespone += "<button><a href='LogoutController'>Logout "+uname+"</a></button>";
-		        htmlRespone += "</body></html>";
-		        pw.println(htmlRespone);
+				String htmlRespone = "\r\n"
+	    				+ "<!DOCTYPE html>\r\n"
+	    				+ "<html>\r\n"
+	    				+ "<head>\r\n"
+	    				+ "<meta charset=\"ISO-8859-1\">\r\n"
+	    				+ "<title>Customer Dashborad</title>\r\n"
+	    				+ "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">\r\n"
+	    				+ "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\" crossorigin=\"anonymous\"></script>\r\n"
+	    				+ "\r\n"
+	    				+ "<style>\r\n"
+	    				+ "      body{\r\n"
+	    				+ "        font-family: 'Poppins', sans-serif;\r\n"
+	    				+ "      }\r\n"
+	    				+ "      \r\n"
+	    				+ "      nav,\r\n"
+	    				+ "      .top {\r\n"
+	    				+ "        background-color: rgb(0,0,0);\r\n"
+	    				+ "        \r\n"
+	    				+ "      }\r\n"
+	    				+ "      .border {\r\n"
+	    				+ "        border-radius: 20px;\r\n"
+	    				+ "        border-color: rgb(0, 4, 5);\r\n"
+	    				+ "        border-width: 100px;\r\n"
+	    				+ "        border-style: solid;\r\n"
+	    				+ "      }\r\n"
+	    				+ "		 .nav-item{\r\n"
+	    				+ "				      margin-left:30px;\r\n"
+	    				+ "				      }\r\n"
+	    				+ "      \r\n"
+	    				+ "      \r\n"
+	    				+ "    </style>\r\n"
+	    				+ "</head>\r\n"
+	    				+ "<body>\r\n"
+	    				+ "	\r\n"
+	    				+ "<nav class=\"navbar navbar-expand-lg navbar-dark\">\r\n"
+	    				+ "    <div class=\"container-fluid fw-bolder fs-4\">\r\n"
+	    				+ "      <a class=\"navbar-brand\" href=\"CustomerDashboard.html\"><img src=\"https://user-images.githubusercontent.com/55631782/126907473-d11f3353-9cf4-4d56-9f54-b2d80a3ae6a3.png\" alt=\"Logo\" height=\"70px\"/></a>\r\n"
+	    				+ "      <button\r\n"
+	    				+ "        class=\"navbar-toggler\"\r\n"
+	    				+ "        type=\"button\"\r\n"
+	    				+ "        data-bs-toggle=\"collapse\"\r\n"
+	    				+ "        data-bs-target=\"#navbarTogglerDemo02\"\r\n"
+	    				+ "        aria-controls=\"navbarTogglerDemo02\"\r\n"
+	    				+ "        aria-expanded=\"false\"\r\n"
+	    				+ "        aria-label=\"Toggle navigation\"\r\n"
+	    				+ "      >\r\n"
+	    				+ "        <span class=\"navbar-toggler-icon\"></span>\r\n"
+	    				+ "      </button>\r\n"
+	    				+ "      <div class=\"collapse navbar-collapse\" id=\"navbarTogglerDemo02\">\r\n"
+	    				+ "        <ul class=\"navbar-nav me-auto mb-2 mb-lg-0 \">\r\n"
+	    				+ "          \r\n"
+	    				+ "          <li class=\"nav-item\">\r\n"
+	    				+ "            <a class=\"nav-link \" href=\"addproductadmin.html\">Add Product</a>\r\n"
+	    				+ "          </li>\r\n"
+	    				+ "          <li class=\"nav-item\">\r\n"
+	    				+ "            <a class=\"nav-link \" href=\"UpdateProductAdmin.html\">Update Product</a>\r\n"
+	    				+ "          </li>\r\n"
+	    				+ "          <li class=\"nav-item\">\r\n"
+	    				+ "            <a class=\"nav-link active\" href=\"deleteproductadmin.html\"> Delete Product</a>\r\n"
+	    				+ "          </li>\r\n"
+	    				+ "          <li class=\"nav-item\">\r\n"
+	    				+ "            <a class=\"nav-link\" href=\"DisplayProductController\">Display Products</a>\r\n"
+	    				+ "          </li>\r\n"
+	    				+ "          <li class=\"nav-item\">\r\n"
+	    				+ "            <a class=\"nav-link\" href=\"LogoutController\">Logout</a>\r\n"
+	    				+ "          </li>\r\n"
+	    				+ "        </ul>\r\n"
+	    				+ "      </div>\r\n"
+	    				+ "    </div>\r\n"
+	    				+ "  </nav>\r\n"
+	    				+ "   <br>\r\n"
+	    				+ "   <br>\r\n"
+	    				+ "   <br>\r\n"
+	    				+ "   <div class=\"container\">\r\n"
+	    				+ "     <h1 class=\"display-2\">Product Unable to delete.</h1>"
+	    				+ "   </div>\r\n"
+	    				+ "\r\n"
+	    				+ "</body>\r\n"
+	    				+ "</html>\r\n"
+	    				+ "";
+		        out.println(htmlRespone);
 			}
 		  
 	}
