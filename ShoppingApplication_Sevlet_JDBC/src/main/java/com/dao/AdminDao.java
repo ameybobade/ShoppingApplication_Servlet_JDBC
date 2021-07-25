@@ -25,10 +25,14 @@ public class AdminDao {
 			
 			while(rs.next())
 			{
-				prodId = rs.getInt(1);
+				if(prodId<rs.getInt(1))
+				{
+					prodId = rs.getInt(1);
+				}
 			}
 			
 			prodId=prodId+1;
+			
 			
 			pstate = con.prepareStatement("insert into ProductDB values(?,?,?,?)");
 			pstate.setInt(1, prodId);

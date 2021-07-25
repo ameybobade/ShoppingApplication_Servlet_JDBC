@@ -15,7 +15,7 @@ public class RegistrationDao {
 	public int AdminRegistration(Registration reg) {
 		
 		con = mycon.getConnection();
-		int id = 1;
+		int id = 0;
 		
 		try {
 			System.out.println("1");
@@ -25,9 +25,14 @@ public class RegistrationDao {
 			ResultSet rs = state.executeQuery(str);
 			
 			while(rs.next()) {
-				id = rs.getInt(1)+1;
+				if(id<rs.getInt(1))
+				{
+					id = rs.getInt(1);
+				}
+				
 			}
-			System.out.println("1");
+			id=id+1;
+			//System.out.println("1");
 			pstate = con.prepareStatement("insert into admindb values(?,?,?)");
 			
 			pstate.setInt(1, id);
@@ -51,7 +56,7 @@ public class RegistrationDao {
 	public int CustomerRegistration(Registration reg) {
 		
 		con = mycon.getConnection();
-		int id = 1;
+		int id = 0;
 		
 		try {
 			System.out.println("1");
@@ -61,9 +66,13 @@ public class RegistrationDao {
 			ResultSet rs = state.executeQuery(str);
 			
 			while(rs.next()) {
-				id = rs.getInt(1)+1;
+				if(id<rs.getInt(1))
+				{
+					id = rs.getInt(1);
+				}
 			}
-			System.out.println("1");
+			id=id+1;
+			//System.out.println("1");
 			pstate = con.prepareStatement("insert into customerdb values(?,?,?,?,?,?)");
 			
 			pstate.setInt(1, id);

@@ -51,6 +51,7 @@ public class CustomerProfileController extends HttpServlet {
           //  System.out.println(p.getName());
           //  System.out.println(p.getPhone());
             pw.print("<table>");
+            pw.print("<table>");
             pw.print("<tr>");
             pw.print("<th>Profile</th>");
             pw.print("</tr>");
