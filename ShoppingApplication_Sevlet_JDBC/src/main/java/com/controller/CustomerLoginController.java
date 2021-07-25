@@ -27,11 +27,7 @@ public class CustomerLoginController extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-	List<Product> Cartlist = null;
-    public void init() {
-    	Cartlist = new LinkedList<Product>();
-    	System.out.println("init here");
-  	}
+	
     public CustomerLoginController() {
         super();
         // TODO Auto-generated constructor stub
@@ -56,9 +52,8 @@ public class CustomerLoginController extends HttpServlet {
 			session.setAttribute("uname",uname);
 			
 			CustomerDao custdao=new CustomerDao();
-			Cartlist = custdao.CheckCart(uname);
+			System.out.println("Login controller");
 			
-			session.setAttribute("Cartlist",Cartlist);
 			
 			response.sendRedirect("CustomerDashboard.html");
 			

@@ -35,27 +35,7 @@ public class CustomerLogoutController extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		HttpSession session = request.getSession(false);
-		List<Product> Cartlist=(List<Product>) session.getAttribute("Cartlist");
-		String uname=(String) session.getAttribute("uname");
-		System.out.println(uname+"control");
-		CustomerDao custdao=new CustomerDao();
-		custdao.Logout(Cartlist,uname);
 		
-		
-		//session.removeAttribute("uname");
-		session.removeAttribute("Cartlist");
-		session.invalidate();
-		
-		session = request.getSession(false);
-		if(session==null)
-		{
-			response.sendRedirect("Home.html");
-		}
-		else
-		{
-			System.out.println("Not null");
-		}
 		
 	}
 

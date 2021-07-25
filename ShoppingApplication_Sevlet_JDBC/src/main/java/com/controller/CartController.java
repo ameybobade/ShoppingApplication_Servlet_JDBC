@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dao.AdminDao;
+import com.dao.CustomerDao;
 import com.model.Product;
 
 /**
@@ -36,56 +36,43 @@ public class CartController extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		HttpSession session=request.getSession();
-		List<Product> Cartlist=(List<Product>) session.getAttribute("Cartlist");
+		HttpSession session=request.getSession(false);
+		String uname = (String) session.getAttribute("uname");
+		if(session==null)
+		{
+			response.sendRedirect("CustomerLogin.html");
+		}
+		CustomerDao custdao=new CustomerDao();
+		
+		List<Product> CartList=custdao.CartDisplay(uname);
 		
 		PrintWriter pw =  response.getWriter(); 
-        
-        
-        pw.print("<style>");
-        pw.print("table {  font-family: arial, sans-serif; border-collapse: collapse; width: 60%;}");
-        pw.print("td, th {\r\n"
-        		+ "  border: 1px solid #dddddd;\r\n"
-        		+ "  text-align: left;\r\n"
-        		+ "  padding: 8px;\r\n"
-        		+ "}");
-        pw.print("tr:nth-child(even) {\r\n"
+		String htmlresponse="<style>";
+		htmlresponse+="table {  font-family: arial, sans-serif; border-collapse: collapse; width: 60%;}";
+		htmlresponse+="td, th {\r\n"
+		+ "  border: 1px solid #dddddd;\r\n"
+		+ "  text-align: left;\r\n"
+		+ "  padding: 8px;\r\n"
+		+ "}";
+		htmlresponse+="tr:nth-child(even) {\r\n"
         		+ "  background-color: #dddddd;\r\n"
-        		+ "}");
-        pw.print("</style>");
-        pw.print("<h1>Cart</h1>");
-        pw.print("<table>");
-        pw.print("<tr>");
-        
-        pw.print("<th>Product Name</th>");
-        pw.print("<th>Quantity</th>"); 
-        pw.print("<th>Price</th>");
-        pw.print("</tr>");
-        
-        for(Product p:Cartlist) {
-        	 pw.print("<tr>");
-	            
+        		+ "}";
+		htmlresponse+="</style>";
+		htmlresponse+="<table>"
+				+"<tr>"
+				+"<th>Product Name</th>"
+				+"<th>Quantity</th>"
+				+"<th>Price</th>"
+				+"</tr>";
+		pw.print(htmlresponse);
+       for(Product p:CartList) {
+        	 	pw.print("<tr>");
 	            pw.print("<td>"+p.getProdName()+"</td>");
 	            pw.print("<td>"+p.getProdQuant()+"</td>");
 	            pw.print("<td>"+p.getProdPrice()+"</td>");
 	            pw.print("</tr>");
         }
         pw.print("</table>");
-        String htmlRespone = "<html>\r\n"
-        		+ "<head>\r\n"
-        		+ "<meta charset=\"ISO-8859-1\">\r\n"
-        		+ "<title>Insert title here</title>\r\n"
-        		+ "</head>\r\n"
-        		+ "<body>\r\n"
-        		+ "	<button><a href=\"CustomerProfileController\">Profile</a></button>\r\n"
-        		+ "	<!-- <button><a href=\"LastTransactionController\">Last Transaction</a></button> -->\r\n"
-        		+ "	<button><a href=\"ShopController\">Buy Products</a></button>\r\n"
-        		+ "	<button><a href=\"CartController\">Cart</a></button>\r\n"
-        		+ "	<button><a href=\"BillController\">Bill</a></button>\r\n"
-        		+ "	<button><a href=\"CustomerLogoutController\">Logout</a></button>\r\n"
-        		+ "</body>\r\n"
-        		+ "</html>";
-        pw.println(htmlRespone);
 	}
 
 	/**

@@ -67,7 +67,7 @@ public class AdminDao {
 	       try {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(str);
-			 ResultSetMetaData rm = rs.getMetaData();
+			// ResultSetMetaData rm = rs.getMetaData();
 			
 			  while(rs.next()) {
 				    Product p = new Product(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4));
