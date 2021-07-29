@@ -134,11 +134,11 @@ public class ShopController extends HttpServlet {
 		htmlresponse+="<form class='container' action='AddtoCartController' method='post' >\r\n"
 				+ "  <div class=\"mb-3\">\r\n"
 				+ "    <label class=\"form-label\">Product Id :</label>\r\n"
-				+ "    <input type=\"number\" class=\"form-control\" name='prodid'>\r\n"
+				+ "    <input type=\"number\" class=\"form-control\" name='prodid' required>\r\n"
 				+ "  </div>\r\n"
 				+ "  <div class=\"mb-3\">\r\n"
 				+ "    <label class=\"form-label\">Product Quantity :</label>\r\n"
-				+ "    <input type=\"number\" class=\"form-control\"  name='prodquant'>\r\n"
+				+ "    <input type=\"number\" class=\"form-control\"  name='prodquant' required>\r\n"
 				+ "  </div>\r\n"
 				+ "  <button type=\"submit\" class=\"btn btn-primary\">Buy Product</button>\r\n"
 				+ "</form>";
